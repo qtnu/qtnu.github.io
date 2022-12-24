@@ -1,5 +1,11 @@
 <html>
-  <head></head>
+  <head> <title>hello my php</title>
+    <style>
+        .error {
+            color: #Ffc0cb;
+        }
+    </style>
+  </head>
   <h1>Pop Pop's world</h1>
 <title>Pop Pop's world</title>
 <body background="https://tse1-mm.cn.bing.net/th/id/OET.3ebe189b5b264088badbe7f006047955?w=272&h=272&c=7&rs=1&o=5&dpr=1.3&pid=1.9">
@@ -27,20 +33,7 @@
 </ul>
   <p><a href="bear.html">bear'home
   </p>
-</body>
-</html>
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>hello my php</title>
-    <style>
-        .error {
-            color: #Ffc0cb;
-        }
-    </style>
-</head>
-<body align="center" >
-<?php
+    <?php
 
 $name = $id = $sexsite = "";
 $nameerr = $iderr = $sexsiteerr = "";
@@ -152,3 +145,4 @@ $testInsert = mysqli_query($con,
 
 </body>
 </html>
+
