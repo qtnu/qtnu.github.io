@@ -29,3 +29,126 @@
   </p>
 </body>
 </html>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>hello my php</title>
+    <style>
+        .error {
+            color: #Ffc0cb;
+        }
+    </style>
+</head>
+<body align="center" >
+<?php
+
+$name = $id = $sexsite = "";
+$nameerr = $iderr = $sexsiteerr = "";
+$password=$passwordEll="";
+$passFlag=0;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["name"])) {
+        $nameerr = "can't empty";
+    } else {
+        $name = clear_input($_POST["name"]);
+    }
+
+    if (empty($_POST["id"])) {
+        $idlerr = "can't empty";
+    } else {
+        $id = clear_input($_POST["id"]);
+    }
+
+    if (empty($_POST["sexsite"])) {
+        $sexsiteerr = "can't empty";
+    } else {
+        $sexsite = clear_input($_POST["sexsite"]);
+    }
+
+    if(empty($_POST["password"])){
+        $passwordEll="必须输入密码";
+    }else{
+        $password= clear_input($_POST["password"]);
+        if($password=='123456'){
+            $passFlag=1;
+            $passwordEll="密码正确";
+        }else{
+            $passwordEll="密码不正确";
+        }
+    }
+}
+/*$con = new conn();
+if(mysqli_query("$con","create database if no exist")){
+    echo "yes";
+}else{
+}*/
+function clear_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+?>
+<h1>表单提交测试</h1>
+<form method="post"  action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    名字：<input type="text" name="name" value="<?php echo $name; ?>">
+    <span class="error">* <?php echo "<br> $nameerr"; ?>
+        </span>
+    <br><br>
+    ID：<input type="text" name="id" value="<?php echo $id; ?>">
+    <span class="error">*<?php echo "<br> $idlerr"; ?></span>
+    <br><br>
+    password:<input type="password" name="password" >
+    <?php
+            echo $passwordEll;
+    ?>
+    <br><br>
+    性别：<input type="text" name="sexsite" value="<?php echo $sexsite ?>">
+    <span class="error">*</span>
+    <br><br>
+    <input type="submit" name="submit" value="提交">
+
+</form>
+<p align="center"><table>
+    <tr><th >姓名</th> <th>性别</th> <th>id</th>
+    </tr>
+<?php
+$con = mysqli_connect('localhost','root','123456');
+if (!$con){
+exit('bye');
+}
+mysqli_select_db($con,'test');
+$get=mysqli_query($con, 'select *from test_table ');
+echo $name;
+if($get){
+while($data=mysqli_fetch_array($get)){
+echo '<tr><th>';
+        echo $data[0];
+        echo '</th><th>';
+        echo "$data[1]";
+        echo '</th><th>';
+        echo "$data[2]";
+        echo '</th></tr>';
+}
+}else{
+echo mysqli_error($con);
+}
+?>
+</table>
+</p>
+<?php
+error_reporting(0);
+/*$sql = 'CREATE DATABASE Qin';
+$retval = mysqli_query($con, $sql);*/
+$testBatabase = mysqli_select_db($con, test);
+$testInsert = mysqli_query($con,
+    "insert into `test_table`()value('{$name}','{$id}','{$sexsite}')");
+
+/*mysqli_query("");*/
+?>
+
+</body>
+</html>
